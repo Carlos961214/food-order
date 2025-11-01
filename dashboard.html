@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Order - Rápido y Fresco</title>
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* --- Estilos del carrito --- */
+    .cart-icon {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: #ff4d4d;
+      color: white;
+      border-radius: 50%;
+      padding: 3px 6px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .cart-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .cart-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .cart-content {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      width: 400px;
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      animation: fadeInUp 0.4s ease;
+    }
+
+    .cart-content h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .cart-items {
+      max-height: 250px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .cart-item img {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+
+    .cart-total {
+      text-align: right;
+      font-weight: 700;
+      margin-top: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .close-cart {
+      background: #ff4d4d;
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .add-to-cart {
+      margin-top: 10px;
+      background: #5e5862;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+      font-weight: 600;
+    }
+
+    .add-to-cart:hover {
+      background: #ff1a1a;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-decor"></div>
+  <div class="container">
+    <header class="navbar">
+      <div class="logo">Food Order</div>
+      <div class="nav-icons">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="buscar comida...">
+        </div>
+        <!-- 🔹 Ícono del carrito con contador -->
+        <div class="cart-icon" id="cart-btn">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count" id="cart-count">0</span>
+        </div>
+        <!-- 🔹 Botón de Cerrar Sesión -->
+        <button class="logout-btn" id="logout-btn">
+          <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+        </button>
+      </div>
+    </header>
+
+    <main class="hero-section">
+      <div class="hero-content">
+        <h1>¡Ordena tu favorito!</h1>
+      </div>
+      <div class="hero-image">
+        <img src="plato.jpg" alt="Plato principal de falafel y hummus">
+      </div>
+    </main>
+
+    <section class="popular-dishes">
+      <div class="dish-card" data-id="1" data-nombre="Hamburguesa Clasica" data-precio="30000" data-img="assets/img/hamburguesa.jpg">
+        <img src="assets/img/hamburguesa.jpg" alt="Classic Burger">
+        <h3>Hamburguesa Clasica</h3>
+        <p class="price">$30.000</p>
+        <button class="add-to-cart">Agregar al carrito</button>
+      </div>
+
+      <div class="dish-card" data-id="2" data-nombre="Sushi" data-precio="28000" data-img="assets/img/sushi platter.png">
+        <img src="assets/img/sushi platter.png" alt="Sushi Platter">
+        <h3>Sushi</h3>
+        <p class="price">$28.000</p>
+        <button class="add-to-cart">Agregar al carrito</button>
+      </div>
+
+      <div class="dish-card" data-id="3" data-nombre="Cazuela de Mariscos" data-precio="35000" data-img="assets/img/cazuela de mariscos.png">
+        <img src="assets/img/cazuela de mariscos.png" alt="Cazuela">
+        <h3>Cazuela de Mariscos</h3>
+        <p class="price">$35.000</p>
+        <button class="add-to-cart">Agregar al carrito</button>
+      </div>
+
+      <div class="dish-card" data-id="4" data-nombre="Pasta Carbonara" data-precio="25000" data-img="assets/img/pasta.png">
+        <img src="assets/img/pasta.png" alt="Pasta">
+        <h3>Pasta Carbonara</h3>
+        <p class="price">$25.000</p>
+        <button class="add-to-cart">Agregar al carrito</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- 🔹 Modal Cerrar Sesión -->
+  <div id="logout-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>¿Seguro que deseas cerrar sesión?</h2>
+      <p>Tu sesión actual se cerrará y volverás al inicio de sesión.</p>
+      <div class="modal-actions">
+        <button id="cancel-btn" class="cancel-btn">Cancelar</button>
+        <button id="confirm-btn" class="confirm-btn">Cerrar sesión</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔹 Modal Carrito -->
+  <div id="cart-modal" class="cart-modal">
+    <div class="cart-content">
+      <h2>Tu carrito</h2>
+      <div class="cart-items" id="cart-items"></div>
+      <div class="cart-total" id="cart-total">Total: $0</div>
+      <div style="text-align:center; margin-top:1rem;">
+        <button class="close-cart" id="close-cart">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔹 Script General -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // --- Cerrar sesión ---
+      const logoutBtn = document.getElementById('logout-btn');
+      const logoutModal = document.getElementById('logout-modal');
+      const cancelBtn = document.getElementById('cancel-btn');
+      const confirmBtn = document.getElementById('confirm-btn');
+
+      logoutBtn.addEventListener('click', () => logoutModal.classList.remove('hidden'));
+      cancelBtn.addEventListener('click', () => logoutModal.classList.add('hidden'));
+      confirmBtn.addEventListener('click', () => window.location.href = 'login.html');
+      logoutModal.addEventListener('click', (e) => { if (e.target === logoutModal) logoutModal.classList.add('hidden'); });
+
+      // --- Carrito ---
+      const cartBtn = document.getElementById('cart-btn');
+      const cartModal = document.getElementById('cart-modal');
+      const closeCart = document.getElementById('close-cart');
+      const cartItemsContainer = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+      const cartCount = document.getElementById('cart-count');
+
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+      const actualizarCarrito = () => {
+        cartItemsContainer.innerHTML = '';
+        let total = 0;
+
+        carrito.forEach(item => {
+          total += item.precio * item.cantidad;
+          const div = document.createElement('div');
+          div.classList.add('cart-item');
+          div.innerHTML = `
+            <img src="${item.imagen}" alt="${item.nombre}">
+            <span>${item.nombre} x${item.cantidad}</span>
+            <span>$${item.precio * item.cantidad}</span>
+          `;
+          cartItemsContainer.appendChild(div);
+        });
+
+        cartTotal.textContent = 'Total: $' + total.toLocaleString();
+        cartCount.textContent = carrito.reduce((acc, el) => acc + el.cantidad, 0);
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+      };
+
+      // Abrir/cerrar modal carrito
+      cartBtn.addEventListener('click', () => cartModal.classList.add('active'));
+      closeCart.addEventListener('click', () => cartModal.classList.remove('active'));
+      cartModal.addEventListener('click', (e) => { if (e.target === cartModal) cartModal.classList.remove('active'); });
+
+      // Agregar producto
+      document.querySelectorAll('.add-to-cart').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const card = e.target.closest('.dish-card');
+          const id = card.dataset.id;
+          const nombre = card.dataset.nombre;
+          const precio = parseInt(card.dataset.precio);
+          const imagen = card.dataset.img;
+
+          const existente = carrito.find(item => item.id === id);
+          if (existente) {
+            existente.cantidad++;
+          } else {
+            carrito.push({ id, nombre, precio, imagen, cantidad: 1 });
+          }
+          actualizarCarrito();
+        });
+      });
+
+      actualizarCarrito();
+    });
+  </script>
+</body>
+</html>

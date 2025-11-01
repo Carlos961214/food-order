@@ -1,0 +1,921 @@
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Food Order - Delivery Web</title>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+        <script src="https://unpkg.com/lucide@latest"></script>
+        
+        <style>
+            /* Base y Reset */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Montserrat', sans-serif;
+                color: #333;
+                background-color: #f8f8f8; 
+                overflow-x: hidden; 
+            }
+
+            .container {
+                max-width: 1200px; 
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+
+            /* --- Tipografía y Énfasis --- */
+            
+            strong {
+                color: #ffaa00;
+                font-weight: 900; 
+                text-shadow: 0 0 5px rgba(255, 170, 0, 0.5); 
+            }
+
+            h1 {
+                font-size: 5rem; 
+                font-weight: 900;
+                line-height: 1.1;
+                margin-bottom: 20px;
+                color: #fff;
+                letter-spacing: -1px; 
+            }
+
+            h1 strong {
+                font-weight: 900;
+            }
+
+            .subtitle {
+                font-size: 1.5rem;
+                font-weight: 400;
+                line-height: 1.4;
+                margin-bottom: 25px;
+                max-width: 600px;
+                color: #f0f0f0; 
+            }
+
+            .stats {
+                font-size: 1.05rem; 
+                font-weight: 400;
+                margin-bottom: 40px;
+                max-width: 600px;
+                color: #e0e0e0; 
+            }
+
+            /* --- SECCIÓN HERO Y ENCABEZADO --- */
+            .hero-header {
+                background: linear-gradient(135deg, #4d00a8 0%, #7c00e6 30%, #4a00ff 70%, #001eff 100%);
+                position: relative;
+                padding-bottom: 250px; 
+                min-height: 750px; 
+                clip-path: ellipse(160% 100% at 50% 0%); 
+                z-index: 1;
+            }
+
+            /* --- NAVEGACIÓN --- */
+            .navbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 30px 0;
+            }
+
+            .logo {
+                font-size: 1.4rem; 
+                font-weight: 700;
+                color: #fff;
+                letter-spacing: 0.5px;
+            }
+
+            .logo span.thin { 
+                font-weight: 400; 
+                opacity: 0.8; 
+            }
+
+            .nav-links {
+                list-style: none;
+                display: flex;
+                align-items: center;
+            }
+
+            .nav-links li {
+                margin-left: 28px; 
+            }
+
+            .nav-links a {
+                color: #fff;
+                text-decoration: none;
+                font-size: 0.88rem; 
+                font-weight: 600;
+                padding: 5px 10px;
+                transition: color 0.3s;
+                opacity: 0.8; 
+            }
+
+            .nav-links a:hover {
+                opacity: 1;
+                color: #ffaa00;
+            }
+
+            .nav-links a.btn-login {
+                opacity: 1;
+                font-weight: 700;
+            }
+
+            .btn-register {
+                background-color: #ffaa00;
+                color: #1a1a1a !important;
+                padding: 8px 20px;
+                border-radius: 20px;
+                font-weight: 700 !important;
+                text-transform: uppercase;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                opacity: 1 !important; 
+            }
+            .btn-register:hover {
+                background-color: #e69500;
+            }
+
+            /* Mobile Menu Button */
+            .mobile-menu-btn {
+                display: none;
+                background: rgba(255, 255, 255, 0.1);
+                border: none;
+                color: white;
+                padding: 10px;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+
+            @media (max-width: 768px) {
+                .nav-links {
+                    display: none;
+                }
+                .mobile-menu-btn {
+                    display: block;
+                }
+                .nav-links.active {
+                    display: flex;
+                    flex-direction: column;
+                    position: absolute;
+                    top: 80px;
+                    right: 20px;
+                    background: rgba(77, 0, 168, 0.95);
+                    padding: 20px;
+                    border-radius: 10px;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                }
+                .nav-links.active li {
+                    margin: 10px 0;
+                }
+            }
+            
+            /* --- CONTENIDO HERO --- */
+            .hero-content {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start; 
+                padding-top: 50px; 
+                position: relative;
+                z-index: 10;
+            }
+
+            .text-side {
+                width: 50%;
+                flex-shrink: 0; 
+                padding-right: 30px; 
+            }
+
+            .image-side {
+                width: 50%;
+                position: relative; 
+                height: 450px; 
+            }
+
+            @media (max-width: 968px) {
+                .hero-content {
+                    flex-direction: column;
+                }
+                .text-side, .image-side {
+                    width: 100%;
+                }
+                h1 {
+                    font-size: 3.5rem;
+                }
+            }
+
+            /* Botón Principal */
+            .btn-main {
+                display: inline-block;
+                background-color: #ffaa00; 
+                color: #1a1a1a; 
+                text-decoration: none;
+                padding: 15px 35px;
+                border-radius: 5px;
+                font-size: 1.1rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                transition: all 0.3s;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            }
+            .btn-main:hover {
+                background-color: #e69500;
+                transform: translateY(-2px);
+                box-shadow: 0 7px 20px rgba(0, 0, 0, 0.4);
+            }
+
+            /* Mockup Frame */
+            .mockup-frame-container {
+                position: absolute;
+                top: 0;
+                right: -100px; 
+                width: 550px; 
+                height: 400px;
+                transform: rotate(10deg); 
+                transform-origin: bottom right; 
+                perspective: 1500px; 
+                z-index: 5;
+            }
+
+            .mockup-frame {
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, #001eff 0%, #4a00ff 100%); 
+                border-radius: 25px; 
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6); 
+                transform: translateZ(50px) rotateX(10deg) rotateY(-15deg) scale(0.95); 
+                position: relative;
+                overflow: hidden;
+                padding: 25px; 
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .mockup-screen-inner {
+                background-color: #fff;
+                width: 100%;
+                height: 100%;
+                border-radius: 15px; 
+                overflow: hidden; 
+            }
+
+            .mockup-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover; 
+                display: block;
+            }
+
+            @media (max-width: 968px) {
+                .mockup-frame-container {
+                    position: relative;
+                    right: 0;
+                    margin: 40px auto;
+                    width: 90%;
+                    max-width: 400px;
+                }
+            }
+
+            /* Puntos decorativos */
+            .style-dot {
+                position: absolute;
+                width: 12px; 
+                height: 12px;
+                border-radius: 50%;
+                z-index: 10;
+            }
+
+            .pink-left {
+                background-color: #ffaa00; 
+                bottom: 150px; 
+                left: 10%; 
+                box-shadow: 0 0 15px #ffaa00; 
+            }
+
+            .blue-right {
+                background-color: #ffaa00; 
+                bottom: 300px; 
+                right: 15%; 
+                box-shadow: 0 0 15px #ffaa00; 
+            }
+
+            /* --- SECCIONES ADICIONALES --- */
+            section {
+                padding: 80px 0;
+            }
+
+            .section-title {
+                text-align: center;
+                font-size: 2.5rem;
+                font-weight: 900;
+                margin-bottom: 20px;
+                color: #333;
+            }
+
+            .section-subtitle {
+                text-align: center;
+                font-size: 1.1rem;
+                color: #666;
+                margin-bottom: 60px;
+                max-width: 700px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            /* Cards */
+            .cards-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 30px;
+                margin-top: 40px;
+            }
+
+            .card {
+                background: white;
+                padding: 40px 30px;
+                border-radius: 15px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+                transition: all 0.4s;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border-radius: 15px;
+                padding: 2px;
+                background: linear-gradient(135deg, #4a00ff, #7c00e6, #ffaa00);
+                -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+                mask-composite: exclude;
+                opacity: 0;
+                transition: opacity 0.4s;
+            }
+
+            .card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15), 0 0 30px rgba(255, 170, 0, 0.4), 0 0 40px rgba(74, 0, 255, 0.3);
+            }
+
+            .card:hover::before {
+                opacity: 1;
+            }
+
+            .card-icon {
+                width: 60px;
+                height: 60px;
+                margin: 0 auto 20px;
+                background: linear-gradient(135deg, #ffaa00, #ff8800);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+            }
+
+            .card h3 {
+                font-size: 1.4rem;
+                font-weight: 700;
+                margin-bottom: 15px;
+                color: #333;
+            }
+
+            .card p {
+                color: #666;
+                line-height: 1.6;
+            }
+
+            /* Proceso alternado CON EFECTO 3D */
+            .process-step {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 60px;
+                align-items: center;
+                margin-bottom: 80px;
+            }
+
+            .process-step:nth-child(even) .process-text {
+                order: 2;
+            }
+
+            .process-step:nth-child(even) .process-image {
+                order: 1;
+            }
+
+            .process-number {
+                font-size: 4rem;
+                font-weight: 900;
+                color: #ffaa00;
+                line-height: 1;
+                margin-bottom: 10px;
+            }
+
+            .process-step h3 {
+                font-size: 2rem;
+                font-weight: 700;
+                margin-bottom: 15px;
+                color: #333;
+            }
+
+            .process-step p {
+                color: #666;
+                font-size: 1.1rem;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+
+            /* EFECTO 3D EN IMÁGENES DEL PROCESO */
+            .process-image {
+                perspective: 1000px;
+            }
+
+            .process-image img {
+                width: 100%;
+                max-width: 500px;
+                border-radius: 15px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+                transform-style: preserve-3d;
+                position: relative;
+            }
+
+            .process-image img::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(135deg, rgba(74, 0, 255, 0.1), rgba(255, 170, 0, 0.1));
+                border-radius: 15px;
+                opacity: 0;
+                transition: opacity 0.6s;
+            }
+
+            .process-image:hover img {
+                transform: rotateY(-8deg) rotateX(5deg) translateZ(30px) scale(1.05);
+                box-shadow: 
+                    0 25px 50px rgba(0, 0, 0, 0.2),
+                    0 0 40px rgba(74, 0, 255, 0.3),
+                    0 0 60px rgba(255, 170, 0, 0.2);
+            }
+
+            .process-image:hover img::before {
+                opacity: 1;
+            }
+
+            /* Efecto de brillo que se mueve con el mouse */
+            .process-image {
+                position: relative;
+                overflow: visible;
+            }
+
+            .process-image::after {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: radial-gradient(circle, rgba(255, 170, 0, 0.3) 0%, transparent 60%);
+                opacity: 0;
+                transition: opacity 0.6s;
+                pointer-events: none;
+                border-radius: 15px;
+            }
+
+            .process-image:hover::after {
+                opacity: 1;
+            }
+
+            @media (max-width: 968px) {
+                .process-step {
+                    grid-template-columns: 1fr;
+                }
+                .process-step:nth-child(even) .process-text,
+                .process-step:nth-child(even) .process-image {
+                    order: initial;
+                }
+                
+                .process-image:hover img {
+                    transform: rotateY(-5deg) rotateX(3deg) translateZ(20px) scale(1.03);
+                }
+            }
+
+            /* Testimonios */
+            .testimonial-card {
+                background: white;
+                padding: 35px;
+                border-radius: 15px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+                transition: all 0.4s;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .testimonial-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border-radius: 15px;
+                padding: 2px;
+                background: linear-gradient(135deg, #4a00ff, #7c00e6, #ffaa00);
+                -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+                opacity: 0;
+                transition: opacity 0.4s;
+            }
+
+            .testimonial-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15), 0 0 30px rgba(255, 170, 0, 0.4), 0 0 40px rgba(74, 0, 255, 0.3);
+            }
+
+            .testimonial-card:hover::before {
+                opacity: 1;
+            }
+
+            .testimonial-card .quote-icon {
+                color: #ffaa00;
+                margin-bottom: 15px;
+            }
+
+            .testimonial-text {
+                color: #555;
+                font-style: italic;
+                line-height: 1.7;
+                margin-bottom: 20px;
+            }
+
+            .testimonial-author {
+                font-weight: 700;
+                color: #333;
+                margin-bottom: 5px;
+            }
+
+            .testimonial-role {
+                color: #999;
+                font-size: 0.9rem;
+            }
+
+            /* CTA Final */
+            .cta-section {
+                background: linear-gradient(135deg, #4d00a8 0%, #7c00e6 50%, #4a00ff 100%);
+                color: white;
+                text-align: center;
+                padding: 80px 20px;
+            }
+
+            .cta-section h2 {
+                font-size: 3rem;
+                font-weight: 900;
+                margin-bottom: 20px;
+            }
+
+            .cta-section p {
+                font-size: 1.2rem;
+                margin-bottom: 40px;
+                opacity: 0.9;
+            }
+
+            .cta-buttons {
+                display: flex;
+                gap: 20px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .btn-cta-primary {
+                background-color: #ffaa00;
+                color: #1a1a1a;
+                padding: 15px 40px;
+                border-radius: 30px;
+                font-weight: 700;
+                text-decoration: none;
+                transition: all 0.3s;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            }
+
+            .btn-cta-primary:hover {
+                background-color: #e69500;
+                transform: translateY(-2px);
+            }
+
+            .btn-cta-secondary {
+                background-color: transparent;
+                color: white;
+                padding: 15px 40px;
+                border-radius: 30px;
+                font-weight: 700;
+                text-decoration: none;
+                border: 2px solid white;
+                transition: all 0.3s;
+            }
+
+            .btn-cta-secondary:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+
+            /* Footer */
+            footer {
+                background-color: #1a1a1a;
+                color: #999;
+                padding: 40px 0;
+                text-align: center;
+            }
+
+            .footer-social {
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                margin-bottom: 20px;
+            }
+
+            .footer-social a {
+                color: #999;
+                transition: color 0.3s;
+            }
+
+            .footer-social a:hover {
+                color: #ffaa00;
+            }
+
+            .footer-links {
+                margin-top: 20px;
+            }
+
+            .footer-links a {
+                color: #999;
+                text-decoration: none;
+                margin: 0 15px;
+                transition: color 0.3s;
+            }
+
+            .footer-links a:hover {
+                color: #ffaa00;
+            }
+
+            /* Animaciones */
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .animate-fade-in {
+                animation: fadeInUp 0.8s ease-out;
+            }
+        </style>
+    </head>
+    <body>
+
+        <header class="hero-header">
+            <div class="container">
+                <nav class="navbar">
+                    <div class="logo">Food <span class="thin">Order</span></div> 
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+                    </button>
+                    <ul class="nav-links" id="navLinks">
+                        <li><a href="#caracteristicas">¿PORQUE ELEGIRNOS?</a></li>
+                        <li><a href="#como-funciona">COMO FUNCIONA</a></li>
+                        <li><a href="#testimonios">TESTIMONIOS</a></li>
+                        <li><a href="login.html" class="btn-login">INICIAR SESIÓN</a></li>
+                        <li><a href="register.html" class="btn-register">REGISTRARSE</a></li>
+                    </ul>
+                </nav>
+
+                <div class="hero-content">
+                    <div class="text-side animate-fade-in">
+                        <h1>Tu <strong>Comida</strong> <br>A un Click</h1>
+                        <p class="subtitle">
+                            Pide tus platos favoritos de miles de restaurantes locales y recíbelos en minutos. <strong>Rápido, Fácil y Delicioso.</strong>
+                        </p>
+                        <p class="stats">
+                            Únete a nuestros <strong>3.5 millones</strong> de usuarios satisfechos y come lo que quieras, cuando quieras.
+                        </p>
+                        <a href="login.html" class="btn-main">EMPEZAR MI PEDIDO AHORA</a>
+                    </div>
+                    <div class="image-side">
+                        <div class="mockup-frame-container">
+                            <div class="mockup-frame">
+                                <div class="mockup-screen-inner">
+                                    <img src="assets/img/food-app-screen.png" alt="Pantalla de la App Food Order" class="mockup-img">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="style-dot pink-left"></div>
+                <div class="style-dot blue-right"></div>
+            </div>
+        </header>
+
+        <!-- Sección Características -->
+        <section id="caracteristicas">
+            <div class="container">
+                <h2 class="section-title">¿Por Qué Elegirnos?</h2>
+                <p class="section-subtitle">Diseñado para la velocidad, la frescura y tu comodidad total</p>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-icon">
+                            <i data-lucide="clock" style="width: 30px; height: 30px;"></i>
+                        </div>
+                        <h3>Entrega Rápida</h3>
+                        <p>Entrega promedio en 25 minutos. Utilizamos rutas inteligentes para llevarte tu comida lo más rápido posible.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i data-lucide="utensils" style="width: 30px; height: 30px;"></i>
+                        </div>
+                        <h3>Más de 500 Restaurantes</h3>
+                        <p>Encuentra todas tus cocinas favoritas, desde gourmet hasta comida rápida local. Variedad ilimitada.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i data-lucide="headset" style="width: 30px; height: 30px;"></i>
+                        </div>
+                        <h3>Soporte 24/7</h3>
+                        <p>Nuestro equipo está disponible en todo momento para ayudarte con cualquier duda sobre tu pedido.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Cómo Funciona -->
+        <section id="como-funciona" style="background-color: #f8f8f8;">
+            <div class="container">
+                <h2 class="section-title">Tan Simple Como 1, 2, 3</h2>
+                <p class="section-subtitle">Pedir nunca fue tan fácil</p>
+                
+                <div class="process-step">
+                    <div class="process-text">
+                        <div class="process-number">01</div>
+                        <h3>Selecciona tu Antojo</h3>
+                        <p>Navega por menús organizados de manera hermosa. Usa filtros avanzados para encontrar exactamente lo que quieres, rápido.</p>
+                        <a href="#" style="color: #ffaa00; font-weight: 600; text-decoration: none;">Explorar Menús →</a>
+                    </div>
+                    <div class="process-image">
+                        <img src="assets/img/selecciona-tu-antojo.png" alt="Seleccionar comida">
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-text">
+                        <div class="process-number">02</div>
+                        <h3>Pago Rápido y Seguro</h3>
+                        <p>Guarda tus métodos de pago para un proceso de checkout de dos toques. Cifrado total para tu tranquilidad.</p>
+                        <a href="#" style="color: #ffaa00; font-weight: 600; text-decoration: none;">Métodos de Pago →</a>
+                    </div>
+                    <div class="process-image">
+                        <img src="assets/img/pago-seguro.png" alt="Pago seguro">
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-text">
+                        <div class="process-number">03</div>
+                        <h3>Rastrea y Disfruta</h3>
+                        <p>Recibe notificaciones y rastrea a tu repartidor en tiempo real. Tu comida llega caliente y lista para disfrutar.</p>
+                        <a href="#" style="color: #ffaa00; font-weight: 600; text-decoration: none;">Ver Rastreo →</a>
+                    </div>
+                    <div class="process-image">
+                        <img src="assets/img/rastreo.png" alt="Rastreo en tiempo real">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Testimonios -->
+        <section id="testimonios">
+            <div class="container">
+                <h2 class="section-title">Lo Que Dicen Nuestros Clientes</h2>
+                <p class="section-subtitle">Miles de usuarios satisfechos en todo el país</p>
+                
+                <div class="cards-grid">
+                    <div class="testimonial-card">
+                        <div class="quote-icon">
+                            <i data-lucide="quote" style="width: 30px; height: 30px;"></i>
+                        </div>
+                        <p class="testimonial-text">"La mejor app de delivery que he usado. El diseño es limpio y las entregas son sorprendentemente rápidas. ¡Un 10/10!"</p>
+                        <p class="testimonial-author">Valeria P.</p>
+                        <p class="testimonial-role">Marketing Digital</p>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="quote-icon">
+                            <i data-lucide="quote" style="width: 30px; height: 30px;"></i>
+                        </div>
+                        <p class="testimonial-text">"Una interfaz tan elegante que da gusto pedir. Me facilita la vida y la variedad de comida es infinita."</p>
+                        <p class="testimonial-author">Ricardo M.</p>
+                        <p class="testimonial-role">Consultor Financiero</p>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="quote-icon">
+                            <i data-lucide="quote" style="width: 30px; height: 30px;"></i>
+                        </div>
+                        <p class="testimonial-text">"Finalmente, una app que no me frustra. El proceso es sencillo y el rastreo es súper preciso. Mi nueva favorita."</p>
+                        <p class="testimonial-author">Sofía L.</p>
+                        <p class="testimonial-role">Emprendedora</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Final -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>¡Empieza a Pedir Ahora!</h2>
+                <p>Regístrate en Food Order y disfruta de tu próxima comida entregada con estilo.</p>
+                <div class="cta-buttons">
+                    <a href="register.html" class="btn-cta-primary">REGISTRARSE</a>
+                    <a href="login.html" class="btn-cta-secondary">INICIAR SESIÓN</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="footer-social">
+                    <a href="facebook.com"><i data-lucide="facebook"></i></a>
+                    <a href="instagram.com"><i data-lucide="instagram"></i></a>
+                    <a href="twitter.com"><i data-lucide="twitter"></i></a>
+                </div>
+                <p>&copy; 2024 FoodOrder. Todos los derechos reservados.</p>
+                <div class="footer-links">
+                    <a href="#">Términos</a>
+                    <span style="color: #555;">|</span>
+                    <a href="#">Privacidad</a>
+                    <span style="color: #555;">|</span>
+                    <a href="#">Contacto</a>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            // Inicializar iconos de Lucide
+            lucide.createIcons();
+
+            // Menú móvil
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Cerrar menú al hacer clic en un enlace
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                });
+            });
+
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        }); 
+                    }
+                });
+            });
+        </script>
+    </body>
+    </html>

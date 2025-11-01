@@ -1,0 +1,804 @@
+:root {
+    /* -- Colores Base -- */
+    --color-primary-main: #55268a;
+    --color-primary-bright: #a374cd;
+    --color-electric-blue: #4a00ff;
+    --color-sapphire-blue: #001eff;
+    --color-dark-bg: #1a1a1a;
+    --color-yellow-accent: #ffcc00;
+    
+    /* -- Colores de la Interfaz (Adaptados) -- */
+    --color-accent: var(--color-primary-bright);
+    --color-secondary: #ffffff;
+    --color-glass-bg: rgba(255, 255, 255, 0.1);
+    --color-glass-border: rgba(255, 255, 255, 0.3);
+    --font-family: 'Montserrat', sans-serif;
+}
+
+/* Estilos Generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    color: var(--color-secondary);
+    background-color: var(--color-primary-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden; /* Evitar scroll horizontal si los elementos sobresalen un poco */
+}
+
+/* Decoración de Fondo (Degradado principal) */
+.background-decor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+        var(--color-primary-main) 0%, 
+        var(--color-primary-bright) 50%, 
+        var(--color-sapphire-blue) 100%
+    );
+    opacity: 0.9;
+    z-index: -2;
+    filter: blur(80px);
+}
+
+/* Contenedor Principal con Glassmorphism */
+.container {
+    /* CAMBIO CLAVE: Ampliar el ancho a casi el 100% */
+    width: 98vw; /* Ocupa el 98% del viewport width */
+    max-width: 1450px; /* Puedes ajustar un max-width si no quieres que sea absurdamente grande en monitores ultra anchos */
+    padding: 20px;
+    background: var(--color-glass-bg); 
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--color-glass-border);
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    position: relative;
+    /* CAMBIO CLAVE: Eliminar margen vertical excesivo y centrarlo */
+    margin: 15px; /* 1% del viewport height arriba y abajo, auto para centrar horizontalmente */
+}
+
+/* --- Navegación (Header) --- */
+.navbar {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 10px 30px; 
+    margin-bottom: 30px;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+}
+
+/* CAMBIOS CLAVE AQUÍ */
+.search-box {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 25px; /* Ligeramente más redondeado */
+    padding: 8px 20px; /* Aumento del padding para hacerla más grande */
+    display: flex;
+    align-items: center;
+    margin-right: 25px; /* Ligeramente más de margen */
+    transition: all 0.3s ease-in-out; /* Habilitar transición para el efecto de movimiento */
+    border: 1px solid transparent; /* Borde inicial transparente */
+}
+
+/* EFECTO DE MOVIMIENTO/ACENTO AL HACER CLICK (FOCUS) */
+.search-box:focus-within {
+    background: rgba(255, 255, 255, 0.25); /* Fondo un poco más sólido */
+    border: 1px solid var(--color-electric-blue); /* Borde con color de acento */
+    box-shadow: 0 0 10px var(--color-electric-blue); /* Sombra brillante */
+    transform: scale(1.02); /* Escalar ligeramente para el efecto de movimiento/salida */
+}
+
+.search-box i {
+    margin-right: 12px; /* Más espacio entre el ícono y el texto */
+    color: var(--color-secondary);
+}
+
+.search-box input {
+    background: none;
+    border: none;
+    color: var(--color-secondary);
+    outline: none;
+    width: 200px; /* Aumento del ancho del campo de texto para hacerla más grande */
+    font-size: 1rem; /* Ligeramente más grande el texto */
+}
+
+.search-box input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.fa-shopping-cart {
+    font-size: 1.4rem; /* Hago el carrito un poco más grande para que se vea proporcionado */
+    cursor: pointer;
+}
+
+/* ... (El resto del código CSS se mantiene igual) ... */
+
+/* --- Sección Hero --- */
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* CAMBIO: Aumentar el padding horizontal de la sección hero */
+    padding: 40px 30px; 
+    min-height: 400px;
+}
+
+.hero-content {
+    max-width: 50%;
+}
+
+.tag {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 15px 0;
+    line-height: 1.2;
+}
+
+.hero-content p {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
+
+.delivery-info {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.delivery-info strong {
+    color: var(--color-accent);
+}
+
+.cta-buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+    border: none;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--color-primary-bright), var(--color-electric-blue));
+    color: var(--color-dark-bg);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #8b00ff, #5a10ff);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: none;
+    border: 1px solid var(--color-secondary);
+    color: var(--color-secondary);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.hero-image {
+    max-width: 45%;
+    filter: drop-shadow(0 0 50px rgba(0, 0, 0, 0.6));
+}
+
+.hero-image img {
+    max-width: 0%;
+    height: auto;
+    display: block;
+    border-radius: 40px;
+}
+
+/* --- Platos Populares --- */
+.popular-dishes {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 30px;
+    /* CAMBIO: Aumentar el padding horizontal de los platos populares */
+    padding: 20px 30px 0; 
+}
+
+.dish-card {
+    background: var(--color-glass-bg);
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    flex: 1;
+    min-width: 200px;
+    border: 1px solid var(--color-glass-border);
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.dish-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--color-electric-blue);
+}
+
+.dish-card img {
+    width: 100%;
+    height: auto;
+    max-height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.dish-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--color-secondary);
+}
+
+.dish-card .price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-dark-bg);
+    margin-bottom: 10px;
+}
+
+.dish-meta {
+    display: flex;
+    justify-content: space-around;
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+.dish-meta span i {
+    margin-right: 3px;
+    color: var(--color-yellow-accent);
+}
+
+/* --- Adaptabilidad (Responsive) --- */
+@media (max-width: 900px) {
+    /* Ajustes para tablet/móvil cuando el contenedor es grande */
+    .navbar, .hero-section, .popular-dishes {
+        padding-left: 15px; /* Reduce el padding interno para dispositivos pequeños */
+        padding-right: 15px;
+    }
+
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-content, .hero-image {
+        max-width: 100%;
+    }
+
+    .hero-image {
+        margin-top: 30px;
+    }
+
+    .cta-buttons {
+        justify-content: center;
+    }
+
+    .popular-dishes {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .dish-card {
+        flex: 0 0 calc(50% - 20px);
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .logo {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    
+    .search-box {
+        width: 100%;
+        margin: 10px 0;
+        justify-content: space-between;
+    }
+
+    .dish-card {
+        flex: 0 0 100%;
+    }
+}
+/* Agregar al final de tu archivo dashboard.css */
+
+/* ============================================
+   EFECTOS DE ENTRADA ESPECTACULARES
+   ============================================ */
+
+/* Animación inicial del contenedor principal */
+.container {
+    animation: containerSlideIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    opacity: 0;
+}
+
+@keyframes containerSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Animación del navbar */
+.navbar {
+    animation: fadeInDown 0.6s ease-out 0.2s forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animación de la sección hero */
+.hero-section {
+    animation: fadeIn 0.8s ease-out 0.4s forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Animación del contenido hero (texto) */
+.hero-content {
+    animation: slideInFromLeft 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards;
+    opacity: 0;
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-80px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Animación de la imagen hero */
+.hero-image {
+    animation: scaleUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.7s forwards;
+    opacity: 0;
+}
+
+@keyframes scaleUp {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) rotate(-5deg);
+    }
+    60% {
+        transform: scale(1.05) rotate(2deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* Animación de los botones CTA */
+.cta-buttons .btn {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.cta-buttons .btn:nth-child(1) {
+    animation-delay: 0.8s;
+}
+
+.cta-buttons .btn:nth-child(2) {
+    animation-delay: 0.9s;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animación de las tarjetas de platos */
+.dish-card {
+    animation: cardPopIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    opacity: 0;
+}
+
+.dish-card:nth-child(1) {
+    animation-delay: 1s;
+}
+
+.dish-card:nth-child(2) {
+    animation-delay: 1.1s;
+}
+
+.dish-card:nth-child(3) {
+    animation-delay: 1.2s;
+}
+
+.dish-card:nth-child(4) {
+    animation-delay: 1.3s;
+}
+
+@keyframes cardPopIn {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.8);
+    }
+    60% {
+        transform: translateY(-10px) scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Animación del fondo decorativo */
+.background-decor {
+    animation: backgroundFadeIn 1.5s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes backgroundFadeIn {
+    0% {
+        opacity: 0;
+        filter: blur(100px);
+    }
+    100% {
+        opacity: 0.9;
+        filter: blur(80px);
+    }
+}
+
+/* Efecto de brillo en el logo al cargar */
+.logo {
+    position: relative;
+    animation: logoGlow 0.6s ease-out 0.3s forwards;
+}
+
+@keyframes logoGlow {
+    0% {
+        text-shadow: none;
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(255, 204, 0, 0.8),
+                     0 0 40px rgba(74, 0, 255, 0.6);
+    }
+    100% {
+        text-shadow: none;
+    }
+}
+
+/* Efecto de entrada para el search box */
+.search-box {
+    animation: searchBoxSlide 0.6s ease-out 0.4s forwards;
+    opacity: 0;
+}
+
+@keyframes searchBoxSlide {
+    0% {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Efecto de entrada para el carrito */
+.fa-shopping-cart {
+    animation: cartBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.5s forwards;
+    opacity: 0;
+}
+
+@keyframes cartBounce {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(-180deg);
+    }
+    60% {
+        transform: scale(1.2) rotate(10deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* Animación del título principal */
+.hero-content h1 {
+    animation: titleExpand 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.7s forwards;
+    opacity: 0;
+}
+
+@keyframes titleExpand {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+        letter-spacing: -5px;
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        letter-spacing: normal;
+    }
+}
+
+/* Efecto de pulso en las imágenes de los platos al cargar */
+.dish-card img {
+    animation: imagePulse 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.dish-card:nth-child(1) img {
+    animation-delay: 1.2s;
+}
+
+.dish-card:nth-child(2) img {
+    animation-delay: 1.3s;
+}
+
+.dish-card:nth-child(3) img {
+    animation-delay: 1.4s;
+}
+
+.dish-card:nth-child(4) img {
+    animation-delay: 1.5s;
+}
+
+@keyframes imagePulse {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Opcional: Efecto de partículas brillantes al cargar */
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Asegurar que todo sea visible si JavaScript está deshabilitado */
+.no-js .container,
+.no-js .navbar,
+.no-js .hero-section,
+.no-js .hero-content,
+.no-js .hero-image,
+.no-js .dish-card,
+.no-js .search-box,
+.no-js .fa-shopping-cart {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* ============================================
+   FIN DE EFECTOS DE ENTRADA
+   ============================================ */
+
+
+  /* ===============================
+   BOTÓN DE CERRAR SESIÓN
+   =============================== */
+.logout-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid var(--color-glass-border);
+    color: var(--color-secondary);
+    font-family: var(--font-family);
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 25px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.logout-btn i {
+    color: var(--color-yellow-accent);
+}
+
+.logout-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: var(--color-electric-blue);
+    box-shadow: 0 0 10px var(--color-electric-blue);
+    transform: translateY(-2px);
+}
+
+/* Animación de entrada */
+.logout-btn {
+    animation: fadeInRight 0.7s ease-out 0.6s forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+/*modal perotado de cerrar sesion*//* Estilos para el modal de confirmación */
+
+  /* Fondo oscuro translúcido */
+  .modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: opacity 0.3s ease;
+  }
+
+  .hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Caja del modal */
+  .modal-content {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 400px;
+    text-align: center;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 0.4s ease;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .modal-content h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  .modal-content p {
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    opacity: 0.9;
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  /* Botones del modal */
+  .cancel-btn,
+  .confirm-btn {
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .cancel-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+
+  .cancel-btn:hover {
+    background: rgba(255, 255, 255, 0.35);
+    transform: scale(1.05);
+  }
+
+  .confirm-btn {
+    background: var(--color-electric-blue);
+    color: white;
+  }
+
+  .confirm-btn:hover {
+    background: #ff1a1a;
+    transform: scale(1.05);
+  }
+
